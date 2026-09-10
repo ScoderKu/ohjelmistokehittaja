@@ -1,8 +1,8 @@
 <?php
 $pdo = new PDO(
     "mysql:host=db;dbname=autokanta;charset=utf8mb4",
-    "user",
-    "pass"
+    "root",
+    "root"
 );
 
 $sql = "SELECT * FROM autot";
