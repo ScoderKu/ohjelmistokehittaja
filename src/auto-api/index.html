@@ -1,87 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="fi">
     <head>
         <meta charset ="UTF-8">
         <title>Autojen hakeminen</title>
-        <style>
-            table {
-                border-collapse: collapse;
-                width: 50%;
-            }
-
-            th, td {
-                padding: 2px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-
-            tr:hover {background-color: coral;}
-        </style>
     </head>
 
     <body>
-        Nimi: <input type="text" id="name" placeholder="Nimi"/>
-        Ikä: <input type="number" id="age" placeholder="Ikä"/>
-        Kurssi: <input type="text" id="course" placeholder="Kurssi"/>
-        Arvosana: <input type="number" id="grade" placeholder="Arvosana"/>
-        <button onclick="addStudents()">Lisää</button>
-
-        <h2>Autojen hakeminen</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nimi</th>
-                    <th>Ikä</th>
-                    <th>Kurssi</th>
-                    <th>Arvosana</th>
-                </tr>
-            </thead>
-            <tbody id="studentlist"></tbody>
-        </table>
+        <h1>🚗 Autot</h1>
+        <div id="autot"></div>
+        <script src="script.js"></script>
     </body>
-    
-    <script>
-        class Student {
-            constructor(name, age, course, grade){
-                this.name = name;
-                this.age = age;
-                this.course = course;
-                this.grade = grade;
-            }
-
-            printDetails(){
-                return `<tr><td>${this.name}</td><td>${this.age}</td><td>${this.course}</td><td>${this.printGrade()}</td></tr>`;
-            }
-
-            printGrade(){
-                const grade = parseInt(this.grade);
-                if (this.grade ===1) return "Hylätty"
-                else if (this.grade ===2) return "Hyväksytty"
-                else if (this.grade ===3) return "Hyvä"
-                else if (this.grade ===4) return "Erittäin hyvä"
-                else if (this.grade ===5) return "Erinomainen"
-                else return "Virhe";
-            }
-        }
-
-        const studentList =[];
-
-        function addStudents() {
-            const name = document.getElementById("name").value;
-            const age = Number(document.getElementById("age").value);
-            const course = document.getElementById("course").value;
-            const grade = Number(document.getElementById("grade").value);
-
-            const student = new Student(name, age, course, grade);
-            
-            studentList.push(student);
-
-            let students ="";
-            for(let i = 0; i<studentList.length; i++){
-                students += studentList[i].printDetails();
-            }
-
-            document.getElementById("studentlist").innerHTML = students;
-        }
-    </script>
 </html>

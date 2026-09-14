@@ -19,6 +19,8 @@ services:
       MYSQL_PASSWORD: pass
     ports:
       - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
       interval: 5s
