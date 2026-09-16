@@ -1,17 +1,55 @@
-fetch("api.php")
+class Product {
+    constructor(name, price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    printDetails(){
+        return `<tr><td>${this.name}</td><td>${this.price}</td></tr>`;
+    }
+}
+
+updateProductList();
+
+function updateProductList() {
+    const productList =[];
+
+    fetch("api.php", {
+        method: "GET",
+    })
     .then(response => response.json())
-    .then(products => {
+    .then(data => {
+        data.forEach(product => {
+            productList.push(new Product(product.name, product.price));
 
-        let teksti = "";
+            let products ="";
+            for(let i = 0; i<productList.length; i++){
+                products += productList[i].printDetails();
+            }
 
-        products.forEach(product => {
-
-            teksti += `
-                <p>
-                    ${auto.make} ${auto.model}
-                </p>
-            `;
+            document.getElementById("productList").innerHTML = products;
         });
-
-        document.getElementById("autot").innerHTML = teksti;
     });
+}
+
+function addProduct() {
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+
+    const product = new Product(name, price);
+    
+    fetch('api.php', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(product)
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+        document.getElementById("msg").textContent = data.success;
+        updateProductList();
+    });
+}
