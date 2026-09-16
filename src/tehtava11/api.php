@@ -25,10 +25,6 @@ switch($_SERVER['REQUEST_METHOD']) {
             ':name' => $data['name'],
             ':price' => $data['price']
         ]);
-
-        echo json_encode([
-            'success' => 'true'
-        ]);
         break;
 
     default:

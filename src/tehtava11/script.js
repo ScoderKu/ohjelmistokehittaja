@@ -49,7 +49,12 @@ function addProduct() {
     .then(response => response.json())
 
     .then(data => {
-        document.getElementById("msg").textContent = data.success;
+        if (data.success) {
+            document.getElementById("msg").textContent = "OK";
+        }
+        else {
+            document.getElementById("msg").textContent = "Error";
+        }
         updateProductList();
     });
 }
