@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset ="UTF-8">
+        <title>Tuotteet</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 50%;
+            }
+
+            th, td {
+                padding: 2px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            tr:hover {background-color: coral;}
+        </style>
+    </head>
+
+    <body>
+        Nimi: <input type="text" id="name" placeholder="Nimi"/>
+        Hinta: <input type="number" id="price" placeholder="Hinta"/>
+        <button onclick="addProduct()">Lisää</button>
+
+        <h2>Tuotekatalogi</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nimi</th>
+                    <th>Hinta</th>
+                </tr>
+            </thead>
+            <tbody id="productlist"></tbody>
+        </table>
+
+        <div id="autot"></div>
+        <script src="script.js"></script>
+        
+    </body> 
+</html>

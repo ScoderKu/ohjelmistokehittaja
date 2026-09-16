@@ -1,15 +1,14 @@
 fetch("api.php")
     .then(response => response.json())
-    .then(autot => {
+    .then(products => {
 
         let teksti = "";
 
-        autot.forEach(auto => {
+        products.forEach(product => {
 
             teksti += `
                 <p>
-                    🚗 ${auto.make} ${auto.model}
-                    (${auto.year})
+                    ${auto.make} ${auto.model}
                 </p>
             `;
         });

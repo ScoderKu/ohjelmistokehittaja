@@ -1,11 +1,11 @@
 <?php
 $pdo = new PDO(
-    "mysql:host=db;dbname=autokanta;charset=utf8mb4",
+    "mysql:host=db;dbname=carsdb;charset=utf8mb4",
     "root",
     "root"
 );
 
-$sql = "SELECT * FROM autot";
+$sql = "SELECT * FROM cars";
 $stmt = $pdo->query($sql);
 $autot = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
