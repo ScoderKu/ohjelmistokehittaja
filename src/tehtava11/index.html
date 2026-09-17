@@ -1,42 +1,239 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset ="UTF-8">
-        <title>Tuotteet</title>
-        <style>
-            table {
-                border-collapse: collapse;
-                width: 50%;
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuotekatalogi</title>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --background: #f1f5f9;
+            --card: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--text);
+            font-family: Inter, Segoe UI, Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+        }
+
+        .container {
+            width: min(900px, 100%);
+            margin: auto;
+        }
+
+        header {
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #312e81;
+        }
+
+        header p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .card {
+            padding: 28px;
+            background: var(--card);
+            border: 1px solid rgba(226, 232, 240, .8);
+            border-radius: 20px;
+            box-shadow: 0 20px 45px rgba(51, 65, 85, .12);
+        }
+
+        .form {
+            display: grid;
+            grid-template-columns: 1fr 180px auto;
+            gap: 16px;
+            align-items: end;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: .9rem;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            color: var(--text);
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            transition: .2s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, .14);
+        }
+
+        button {
+            padding: 13px 22px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            background: var(--primary);
+            border: 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        #msg {
+            min-height: 24px;
+            margin-top: 14px;
+            color: var(--primary-dark);
+            font-size: .95rem;
+        }
+
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0 14px;
+        }
+
+        .catalog-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            color: var(--primary-dark);
+            font-size: .85rem;
+            font-weight: 700;
+            background: #eef2ff;
+            border-radius: 999px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--muted);
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            background: #f8fafc;
+        }
+
+        tbody tr {
+            transition: background .2s;
+        }
+
+        tbody tr:hover {
+            background: #eef2ff;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 24px 14px;
             }
 
-            th, td {
-                padding: 2px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
+            .card {
+                padding: 20px;
             }
 
-            tr:hover {background-color: coral;}
-        </style>
-    </head>
+            .form {
+                grid-template-columns: 1fr;
+            }
 
-    <body>
-        Nimi: <input type="text" id="name" placeholder="Nimi"/>
-        Hinta: <input type="number" id="price" placeholder="Hinta"/>
-        <button onclick="addProduct()">Lisää</button>
-        <div id="msg"></div>
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
 
-        <h2>Tuotekatalogi</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nimi</th>
-                    <th>Hinta</th>
-                </tr>
-            </thead>
-            <tbody id="productList"></tbody>
-        </table>
+<body>
+    <main class="container">
+        <header>
+            <h1>Tuotekatalogi</h1>
+            <p>Lisää ja hallitse tuotteitasi helposti</p>
+        </header>
 
-        <script src="script.js"></script>
+        <section class="card">
+            <form class="form" onsubmit="addProduct(); return false;">
+                <div>
+                    <label for="name">Tuotteen nimi</label>
+                    <input type="text" id="name" placeholder="Esim. Langattomat kuulokkeet" required>
+                </div>
 
-    </body> 
+                <div>
+                    <label for="price">Hinta (€)</label>
+                    <input type="number" id="price" placeholder="0.00" min="0" step="0.01" required>
+                </div>
+
+                <button type="submit">＋ Lisää tuote</button>
+            </form>
+
+            <div id="msg" aria-live="polite"></div>
+
+            <div class="catalog-header">
+                <h2>Tuotteet</h2>
+                <span class="badge">Tuotekatalogi</span>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nimi</th>
+                            <th>Hinta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productList"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
 </html>
