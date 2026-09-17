@@ -21,14 +21,14 @@ function updateProductList() {
     .then(data => {
         data.forEach(product => {
             productList.push(new Product(product.name, product.price));
-
-            let products ="";
-            for(let i = 0; i<productList.length; i++){
-                products += productList[i].printDetails();
-            }
-
-            document.getElementById("productList").innerHTML = products;
         });
+
+        let products ="";
+        for(let i = 0; i<productList.length; i++){
+            products += productList[i].printDetails();
+        }
+
+        document.getElementById("productList").innerHTML = products;  
     });
 }
 

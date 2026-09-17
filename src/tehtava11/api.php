@@ -1,6 +1,6 @@
 <?php
 $pdo = new PDO(
-    "mysql:host=db;port=3306;dbname=productbd;charset=utf8mb4",
+    "mysql:host=db;port=3306;dbname=productdb;charset=utf8mb4",
     "root",
     "root"
 );
@@ -25,6 +25,9 @@ switch($_SERVER['REQUEST_METHOD']) {
             ':name' => $data['name'],
             ':price' => $data['price']
         ]);
+
+        echo json_encode(['success' => true]);
+        
         break;
 
     default:
